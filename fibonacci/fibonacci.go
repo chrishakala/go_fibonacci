@@ -29,9 +29,27 @@ func Sequence(count int) [] int {
     return fib
 }
 
+// Returns the sequence of fibonacci numbers from f(0) to f(n)
+// Optimized to avoid allocating data more than once.
+func SequenceOptimized(count int) [] int {
+    var fib []int = make([]int, count+1)
+	if (count < 2) {
+	    for n := 0 ; n <= count; n++ {
+		    fib[n] = n
+		}
+	} else {
+	    fib[0] = 0
+		fib[1] = 1
+		for n := 2; n <= count; n++ {
+		    fib[n] = fib[n-1] + fib[n-2]
+		}
+	}
+	return fib
+}
+
 // Prints the sequence of fibonacci numbers from f(0) to f(n)
 func PrintSequence(count int) {
-    fib := Sequence(count)
+    fib := SequenceOptimized(count)
     if len(fib) < 1 {
         _, err := fmt.Println("Empty sequence")
         if err != nil {
